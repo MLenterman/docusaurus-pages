@@ -1,8 +1,8 @@
 {
     "mappings": {
-        "{{ cookiecutter.instance_name }}": "",
-        "{{ cookiecutter.instance_name_lc }}": "",
-        "{{ cookiecutter.configuration_name }}": ""
+        "{{ cookiecutter.instance_name }}": "docusaurus-pages",
+        "{{ cookiecutter.instance_name_lc }}": "docusaurus-pages",
+        "{{ cookiecutter.configuration_name }}": "docusaurus-configuration"
     },
     "ignoredFiles": [
         "skeletonrc.json",

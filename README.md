@@ -1,4 +1,4 @@
-# {{ cookiecutter.instance_name }}
+# docusaurus-pages
 
 Project for Frank applications deployed by JAR or Docker
 
@@ -43,6 +43,6 @@ Please check if you deem all these functionalities necessary, if not remove them
 
 | Template variable             | Description                                                                                    | Example        |
 |-------------------------------|------------------------------------------------------------------------------------------------|----------------|
-| `{{ cookiecutter.instance_name }}`            | The name of the Frank! to be deployed. It's best to keep this inline with the name of the repo | Frank2Skeleton |
-| `{{ cookiecutter.instance_name_lc }}`         | Lowercase version of the instance name.                                                        | frank2example  |
-| `{{ cookiecutter.configuration_name }}`       | The name of the first configuration (others have to be added manually)                         | Sans           |
+| `docusaurus-pages`            | The name of the Frank! to be deployed. It's best to keep this inline with the name of the repo | Frank2Skeleton |
+| `docusaurus-pages`         | Lowercase version of the instance name.                                                        | frank2example  |
+| `docusaurus-configuration`       | The name of the first configuration (others have to be added manually)                         | Sans           |
