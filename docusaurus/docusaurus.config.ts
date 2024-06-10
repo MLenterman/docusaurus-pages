@@ -42,7 +42,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            `https://github.com/${organizationName}/${projectName}/tree/main/docusaurs/`,
+            `https://github.com/${organizationName}/${projectName}/tree/main/docusaurus/`,
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -57,7 +57,7 @@ const config: Config = {
     navbar: {
       title: 'Docusaurus Pages',
       logo: {
-        alt: 'WeAreFrank Logo',
+        alt: 'WeAreFrank',
         src: 'img/waf-logo-192x192.png',
       },
       items: [
