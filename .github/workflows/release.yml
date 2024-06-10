@@ -8,4 +8,8 @@ on:
 
 jobs:
   docusaurus-release:
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     uses: wearefrank/ci-cd-templates/.github/workflows/docusaurus-release.yml@docusaurus
