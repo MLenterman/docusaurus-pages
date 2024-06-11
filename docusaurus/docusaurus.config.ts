@@ -2,11 +2,11 @@ import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
-const organizationName: String = 'WeAreFrank';
+const organizationName: String = 'MLenterman';
 const projectName: String = 'docusaurus-pages';
 
 const config: Config = {
-  title: 'Docusaurus Pages',
+  title: 'docusaurus-pages',
   tagline: '',
   favicon: 'img/waf-logo-favicon-16x16.png',
 
@@ -55,7 +55,7 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/waf-logo-192x192.png',
     navbar: {
-      title: 'Docusaurus Pages',
+      title: 'docusaurus-pages',
       logo: {
         alt: 'WeAreFrank',
         src: 'img/waf-logo-192x192.png',
