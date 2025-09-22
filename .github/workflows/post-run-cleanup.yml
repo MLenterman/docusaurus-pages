@@ -25,7 +25,7 @@ jobs:
 
             let inputArtifactNames = "pre-build-instance-buildinfo, build-docker-image"; // Prototype hardcoded TODO
             let targetArtifactNames = inputArtifactNames ? inputArtifactNames.split(',').map(name => name.trim()) : workflowArtifactNames;
-            console.log(`Artifacts to be deleted [${targetArtifacts.join(', ')}]`);
+            console.log(`Artifacts to be deleted [${targetArtifactNames.join(', ')}]`);
 
             let matchingArtifacts = allArtifacts.data.artifacts.filter((artifact) => {
               return targetArtifactNames.includes(artifact.name);
