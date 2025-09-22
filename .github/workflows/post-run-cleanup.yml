@@ -31,7 +31,7 @@ jobs:
             console.log(`Artifacts matching target [${matchingArtifacts.data.artifacts.map(artifact => artifact.name).join(', ')}]`);
           
             for (let artifact of matchingArtifacts) {
-              const delete = await github.rest.actions.deleteArtifact({
+              await github.rest.actions.deleteArtifact({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 artifact_id: artifact.id
