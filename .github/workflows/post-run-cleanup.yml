@@ -22,7 +22,7 @@ jobs:
             });
             console.log(`Artifacts produced by workflow run [${allArtifacts.data.artifacts.map(artifact => artifact.name).join(', ')}]`);
 
-            let targetArtifactNames = "pre-build-instance-buildinfo, doesnt exist" ? "pre-build-instance-buildinfo, doesnt exist".split(',').trim() : `${allArtifacts.data.artifacts.map(artifact => artifact.name).join(', ')}`;
+            let targetArtifactNames = String('pre-build-instance-buildinfo, build-docker-image') ? String('pre-build-instance-buildinfo, build-docker-image').split(',').trim() : `${allArtifacts.data.artifacts.map(artifact => artifact.name).join(', ')}`;
             console.log(`Artifacts to be deleted [${targetArtifacts.join(', ')}]`);
 
             let matchingArtifacts = allArtifacts.data.artifacts.filter((artifact) => {
