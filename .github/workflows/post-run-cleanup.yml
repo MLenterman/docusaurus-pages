@@ -1,0 +1,43 @@
+name: Post-run Cleanup 
+
+on:
+  workflow_run:
+    workflows: [Continuous Integration, Release]
+    types:
+      - completed
+
+jobs:
+  delete-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete Artifacts
+        uses: actions/github-script@v8
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                run_id: context.payload.workflow_run.id
+            });
+            console.log(`Artifacts produced by workflow run [${allArtifacts.data.artifacts.map(artifact => artifact.name).join(', ')}]`);
+
+            let targetArtifactNames = "pre-build-instance-buildinfo, doesnt exist" ? "pre-build-instance-buildinfo, doesnt exist".split(',').trim() : `${allArtifacts.data.artifacts.map(artifact => artifact.name).join(', ')}`;
+            console.log(`Artifacts to be deleted [${targetArtifacts.join(', ')}]`);
+
+            let matchingArtifacts = allArtifacts.data.artifacts.filter((artifact) => {
+              return targetArtifactNames.includes(artifact.name);
+            });
+            console.log(`Artifacts matching target [${matchingArtifacts.data.artifacts.map(artifact => artifact.name).join(', ')}]`);
+          
+            for (let artifact in matchingArtifacts) {
+              let delete = await github.rest.actions.deleteArtifact({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                artifact_id: artifact.id
+              });
+              if (delete.status != 204) {
+                throw new Error(`Failed to delete artifact [${artifact.name} (${artifact.id})] - status: [${delete.status}]`);
+              }
+              console.log(`Deleted artifact [${artifact.name} (${artifact.id}) successfully]`);
+            }
