@@ -36,8 +36,8 @@ jobs:
                 repo: context.repo.repo,
                 artifact_id: artifact.id
               });
-              # if (delete.status != 204) {
-              #   throw new Error(`Failed to delete artifact [${artifact.name} (${artifact.id})] - status: [${delete.status}]`);
-              # }
-              # console.log(`Deleted artifact [${artifact.name} (${artifact.id}) successfully]`);
+            // if (delete.status != 204) {
+            //   throw new Error(`Failed to delete artifact [${artifact.name} (${artifact.id})] - status: [${delete.status}]`);
+            // }
+            // console.log(`Deleted artifact [${artifact.name} (${artifact.id}) successfully]`);
             }
