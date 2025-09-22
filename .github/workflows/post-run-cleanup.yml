@@ -20,15 +20,17 @@ jobs:
                 repo: context.repo.repo,
                 run_id: context.payload.workflow_run.id
             });
-            console.log(`Artifacts produced by workflow run [${allArtifacts.data.artifacts.map(artifact => artifact.name).join(', ')}]`);
+            let workflowArtifactNames = allArtifacts.data.artifacts.map(artifact => artifact.name).join(', ');
+            console.log(`Artifacts produced by workflow run [${workflowArtifactNames}]`);
 
-            let targetArtifactNames = String('pre-build-instance-buildinfo, build-docker-image') ? String('pre-build-instance-buildinfo, build-docker-image').split(',').trim() : `${allArtifacts.data.artifacts.map(artifact => artifact.name).join(', ')}`;
+            let inputArtifactNames = "pre-build-instance-buildinfo, build-docker-image"; // Prototype hardcoded TODO
+            let targetArtifactNames = inputArtifactNames ? inputArtifactNames.split(',').map(name => name.trim()) : workflowArtifactNames;
             console.log(`Artifacts to be deleted [${targetArtifacts.join(', ')}]`);
 
             let matchingArtifacts = allArtifacts.data.artifacts.filter((artifact) => {
               return targetArtifactNames.includes(artifact.name);
             });
-            console.log(`Artifacts matching target [${matchingArtifacts.data.artifacts.map(artifact => artifact.name).join(', ')}]`);
+            console.log(`Artifacts matching target [${matchingArtifacts.map(artifact => artifact.name).join(', ')}]`);
           
             for (let artifact of matchingArtifacts) {
               let deleted = await github.rest.actions.deleteArtifact({
