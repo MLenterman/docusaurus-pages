@@ -30,14 +30,14 @@ jobs:
             });
             console.log(`Artifacts matching target [${matchingArtifacts.data.artifacts.map(artifact => artifact.name).join(', ')}]`);
           
-            for (let artifact in matchingArtifacts) {
+            for (let artifact of matchingArtifacts) {
               let delete = await github.rest.actions.deleteArtifact({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 artifact_id: artifact.id
               });
-              if (delete.status != 204) {
-                throw new Error(`Failed to delete artifact [${artifact.name} (${artifact.id})] - status: [${delete.status}]`);
-              }
-              console.log(`Deleted artifact [${artifact.name} (${artifact.id}) successfully]`);
+              # if (delete.status != 204) {
+              #   throw new Error(`Failed to delete artifact [${artifact.name} (${artifact.id})] - status: [${delete.status}]`);
+              # }
+              # console.log(`Deleted artifact [${artifact.name} (${artifact.id}) successfully]`);
             }
