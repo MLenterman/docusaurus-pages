@@ -7,9 +7,42 @@ on:
       - master
 
 jobs:
-  docusaurus-release:
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-    uses: wearefrank/ci-cd-templates/.github/workflows/docusaurus-release.yml@docusaurus
+  artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: touch
+        run: "touch test.txt"
+
+      - name: build-a
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 #4.6.2
+        with:
+          name: build-a
+          path: text.txt
+          retention-days: 1
+      - name: build-b
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 #4.6.2
+        with:
+          name: build-b
+          path: text.txt
+          retention-days: 1
+      - name: report-a
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 #4.6.2
+        with:
+          name: report-a
+          path: text.txt
+          retention-days: 1
+      - name: report-b
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 #4.6.2
+        with:
+          name: report-b
+          path: text.txt
+          retention-days: 1
+  # docusaurus-release:
+  #   permissions:
+  #     contents: read
+  #     pages: write
+  #     id-token: write
+  #   uses: wearefrank/ci-cd-templates/.github/workflows/docusaurus-release.yml@docusaurus
