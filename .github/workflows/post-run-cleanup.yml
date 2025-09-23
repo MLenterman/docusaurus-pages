@@ -39,7 +39,7 @@ jobs:
               });
               matchingArtifacts.add(...matches);
             }
-            console.log(`Artifacts found matching target names [${matchingArtifacts.map(artifact => artifact.name).join(', ')}]`);
+            console.log(`Artifacts found matching target names [${matchingArtifacts.values().map(artifact => artifact.name).join(', ')}]`);
           
             for (let artifact of matchingArtifacts) {
               let deleted = await github.rest.actions.deleteArtifact({
