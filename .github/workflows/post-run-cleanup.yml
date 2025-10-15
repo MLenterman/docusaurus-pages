@@ -34,12 +34,11 @@ jobs:
 
             let matchingArtifacts = new Set();
             for(let targetName of targetArtifactNames) {
-              let matches = allArtifacts.data.artifacts.filter((artifact) => {
+              var matches = allArtifacts.data.artifacts.filter((artifact) => {
                 return wildcardMatchRegExp(artifact.name, targetName);
               });
               matchingArtifacts.add(...matches);
             }
-            console.log(`${Array.from(...matchingArtifacts.values())}`);
             console.log(`Artifacts found matching target names [${Array.from(matchingArtifacts.values().map(artifact => artifact.name)).join(', ')}]`);
           
             
