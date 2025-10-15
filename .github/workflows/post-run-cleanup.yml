@@ -39,7 +39,7 @@ jobs:
               });
               matchingArtifacts.add(...matches);
             }
-            console.log(`${matchingArtifacts.toString()}`);
+            console.log(`${matchingArtifacts.values().toString()}`);
             console.log(`Artifacts found matching target names [${Array.from(matchingArtifacts.values().map(artifact => artifact.name)).join(', ')}]`);
           
             
