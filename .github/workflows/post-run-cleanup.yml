@@ -15,9 +15,6 @@ jobs:
         with:
           github-token: ${{ github.token }}
           script: |
-            const micromatch = require('micromatch');
-
-            console.log(micromatch(['a.js', 'a.txt'], ['*.js']));
             function wildcardMatchRegExp(text, pattern) {
               const regexPattern = new RegExp("^" + pattern.replace(/\?/g, ".").replace(/\*/g, ".*") + "$");
               return regexPattern.test(text);
