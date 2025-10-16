@@ -19,18 +19,29 @@ jobs:
               const regexPattern = new RegExp("^" + pattern.replace(/\?/g, ".").replace(/\*/g, ".*") + "$");
               return regexPattern.test(text);
             }
+
             let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 run_id: context.payload.workflow_run.id
             });
+            
+            let inputArtifactNames = "report-?, build-*, report-a"; // Prototype hardcoded TODO
+            if(!allArtifacts || allArtifacts.data.artifacts.length === 0) {
+              console.log("Workflow produced no artifacts this run.");
+              return;
+            }
+
+            if(!inputArtifactNames) {
+              console.log("No artifact names provided to delete.");
+              return;
+            }
 
             let workflowArtifactNames = allArtifacts.data.artifacts.map(artifact => artifact.name);
             console.log(`Artifacts produced by workflow run [${workflowArtifactNames.join(', ')}]`);
 
-            let inputArtifactNames = "report-?, build-*, report-a"; // Prototype hardcoded TODO
             let targetArtifactNames = inputArtifactNames.split(',').map(name => name.trim());
-            console.log(`Artifacts to be deleted [${targetArtifactNames.join(', ')}]`);
+            console.log(`Target artifact names/patterns to match workflow artifacts with [${targetArtifactNames.join(', ')}]`);
 
             let matchingArtifacts = new Set();
             for(let targetName of targetArtifactNames) {
@@ -39,6 +50,23 @@ jobs:
               });
               matchingArtifacts.add(...matches);
             }
+
+            if(!matchingArtifacts || matchingArtifacts.size === 0) {
+              console.log("No artifacts found matching target names.");
+              return;
+            }
+
             console.log(`Artifacts found matching target names [${Array.from(matchingArtifacts.values().map(artifact => artifact.name)).join(', ')}]`);
-          
+
+            for (let artifact of matchingArtifacts) {
+              let deleted = await github.rest.actions.deleteArtifact({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                artifact_id: artifact.id
+                });
+              if (deleted.status != 204) {
+                  throw new Error(`Failed to delete artifact [${artifact.name} (${artifact.id})] - status: [${deleted.status}]`);
+              }
+              console.log(`Deleted artifact [${artifact.name} (${artifact.id}) successfully]`);
+            }
             
